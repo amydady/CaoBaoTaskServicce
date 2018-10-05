@@ -11,7 +11,7 @@ import com.littlecat.cbb.utils.JsonUtil;
 
 public final class SysParamUtil
 {
-	private static final String SYSPARAM_SERVICE_PATH = "http://localhost:8006/rest/littlecat/caobao/sys/param/getValueByName?name= {name}";
+	private static final String SYSPARAM_SERVICE_PATH = "http://localhost:8006/rest/littlecat/caobao/sys/param/getValueByName?name={name}";
 	private static final String FIELDNAME_SYSPARAM_NAME = "name";
 
 	private SysParamUtil()
