@@ -23,7 +23,7 @@ import com.littlecat.cbb.utils.StringUtil;
 @Component
 public class TaskMgr
 {
-	private Logger logger = LoggerFactory.getLogger(TaskMgr.class);
+	private static final Logger logger = LoggerFactory.getLogger(TaskMgr.class);
 
 	// 定时任务默认启动延时（毫秒）
 	private static final long TASK_DELAY_DEFAULT = 1000;
