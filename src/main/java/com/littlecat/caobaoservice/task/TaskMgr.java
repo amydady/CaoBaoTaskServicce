@@ -29,12 +29,16 @@ public class TaskMgr
 	// 秒杀计划按秒杀时间窗口定时处理失效标记的周期（秒）
 	private static final long SECKILLPLAN_ENABLETAG_PROCESS_CYC_DEFAULT = 5 * 60;
 
+	// 资源锁定期清理周期（秒）
+	private static final long CLEAR_RESLOCK_PROCESS_CYC_DEFAULT = 1 * 60;
+
 	@PostConstruct
 	public void init()
 	{
 		try
 		{
 			startTask4DisableSecKillPlan();
+			startTask4ClearResLock();
 		}
 		catch (Exception e)
 		{
@@ -47,8 +51,6 @@ public class TaskMgr
 	 */
 	private void startTask4DisableSecKillPlan()
 	{
-		Timer timer = new Timer();
-
 		long cyc = SECKILLPLAN_ENABLETAG_PROCESS_CYC_DEFAULT;
 		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_SECKILLPLAN_ENABLETAG_PROCESS_CYC);
 		if (StringUtil.isNotEmpty(cycFromParam))
@@ -56,7 +58,23 @@ public class TaskMgr
 			cyc = Long.valueOf(cycFromParam);
 		}
 
-		// 安排指定的任务在指定的时间开始进行重复的固定周期执行。
-		timer.schedule(new DisableSeckillPlanProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
+		// 固定时延启动，固定周期执行
+		new Timer().schedule(new DisableSeckillPlanProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
+	}
+
+	/**
+	 * 定时清理资源锁
+	 */
+	private void startTask4ClearResLock()
+	{
+		long cyc = CLEAR_RESLOCK_PROCESS_CYC_DEFAULT;
+		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_CLEAR_RESLOCK_PROCESS_CYC);
+		if (StringUtil.isNotEmpty(cycFromParam))
+		{
+			cyc = Long.valueOf(cycFromParam);
+		}
+
+		// 固定时延启动，固定周期执行
+		new Timer().schedule(new ClearResLockProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
 	}
 }
