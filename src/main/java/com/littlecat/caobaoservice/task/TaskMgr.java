@@ -26,9 +26,6 @@ public class TaskMgr
 	// 定时任务默认启动延时（毫秒）
 	private static final long TASK_DELAY_DEFAULT = 1000;
 
-	// 秒杀计划按秒杀时间窗口定时处理失效标记的周期（秒）
-	private static final long SECKILLPLAN_ENABLETAG_PROCESS_CYC_DEFAULT = 5 * 60;
-
 	// 资源锁定期清理周期（秒）
 	private static final long CLEAR_RESLOCK_PROCESS_CYC_DEFAULT = 1 * 60;
 
@@ -37,29 +34,12 @@ public class TaskMgr
 	{
 		try
 		{
-			startTask4DisableSecKillPlan();
 			startTask4ClearResLock();
 		}
 		catch (Exception e)
 		{
 			logger.error("TaskMgr init error.", e);
 		}
-	}
-
-	/**
-	 * 定时将秒杀计划置失效
-	 */
-	private void startTask4DisableSecKillPlan()
-	{
-		long cyc = SECKILLPLAN_ENABLETAG_PROCESS_CYC_DEFAULT;
-		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_SECKILLPLAN_ENABLETAG_PROCESS_CYC);
-		if (StringUtil.isNotEmpty(cycFromParam))
-		{
-			cyc = Long.valueOf(cycFromParam);
-		}
-
-		// 固定时延启动，固定周期执行
-		new Timer().schedule(new DisableSeckillPlanProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
 	}
 
 	/**
