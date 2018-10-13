@@ -35,6 +35,7 @@ public class TaskMgr
 		try
 		{
 			startTask4ClearResLock();
+			startTask4CancelGroupBuyTask();
 		}
 		catch (Exception e)
 		{
@@ -56,5 +57,13 @@ public class TaskMgr
 
 		// 固定时延启动，固定周期执行
 		new Timer().schedule(new ClearResLockProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
+	}
+
+	/**
+	 * 定时清理到期的团购任务
+	 */
+	private void startTask4CancelGroupBuyTask()
+	{
+		//TODO:
 	}
 }
