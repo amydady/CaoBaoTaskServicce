@@ -6,7 +6,7 @@ import com.littlecat.cbb.rest.RestClient;
 
 public class ClearResLockProcessor extends TimerTask
 {
-	protected static final String CLEAR_RESLOCK_PROCESS_SERVICE_PATH = "http://localhost:8006/rest/littlecat/caobao/reslock/clear";
+	protected static final String CLEAR_RESLOCK_PROCESS_SERVICE_PATH = com.littlecat.caobaoservice.common.Consts.SERVICEBASEURL_CAOBAO + "/reslock/clear";
 
 	@Override
 	public void run()

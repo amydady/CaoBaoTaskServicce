@@ -29,6 +29,9 @@ public class TaskMgr
 	// 资源锁定期清理周期（秒）
 	private static final long CLEAR_RESLOCK_PROCESS_CYC_DEFAULT = 1 * 60;
 
+	// 佣金计算周期（秒）
+	private static final long CALC_COMMISSION_PROCESS_CYC_DEFAULT = 1 * 60 * 60 * 24;
+
 	@PostConstruct
 	public void init()
 	{
@@ -36,6 +39,7 @@ public class TaskMgr
 		{
 			startTask4ClearResLock();
 			startTask4CancelGroupBuyTask();
+			startTask4CalcCommission();
 		}
 		catch (Exception e)
 		{
@@ -64,6 +68,22 @@ public class TaskMgr
 	 */
 	private void startTask4CancelGroupBuyTask()
 	{
-		//TODO:
+		// TODO:
+	}
+
+	/**
+	 * 佣金计算定时任务
+	 */
+	private void startTask4CalcCommission()
+	{
+		long cyc = CALC_COMMISSION_PROCESS_CYC_DEFAULT;
+		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_CALC_COMMISSION_PROCESS_CYC);
+		if (StringUtil.isNotEmpty(cycFromParam))
+		{
+			cyc = Long.valueOf(cycFromParam);
+		}
+
+		// 固定时延启动，固定周期执行
+		new Timer().schedule(new CommissionCalcProcessor(), TASK_DELAY_DEFAULT, cyc * 1000);
 	}
 }
