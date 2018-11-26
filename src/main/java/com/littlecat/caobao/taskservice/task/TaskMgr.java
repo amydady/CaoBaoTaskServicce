@@ -1,4 +1,4 @@
-package com.littlecat.caobaoservice.task;
+package com.littlecat.caobao.taskservice.task;
 
 import java.util.Timer;
 
@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.littlecat.caobaoservice.sysparam.SysParamUtil;
+import com.littlecat.caobao.taskservice.sysparam.SysParamUtil;
 import com.littlecat.cbb.common.Consts;
 import com.littlecat.cbb.utils.StringUtil;
 
@@ -27,10 +27,10 @@ public class TaskMgr
 	private static final long TASK_DELAY_DEFAULT = 1000;
 
 	// 资源锁定期清理周期（秒）
-	private static final long CLEAR_RESLOCK_PROCESS_CYC_DEFAULT = 1 * 60;
+	private static final long CLEAR_RESLOCK_PROCESS_CYC_DEFAULT = 60;
 
 	// 佣金计算周期（秒）
-	private static final long CALC_COMMISSION_PROCESS_CYC_DEFAULT = 1 * 60 * 60 * 24;
+	private static final long CALC_COMMISSION_PROCESS_CYC_DEFAULT = 60;
 
 	@PostConstruct
 	public void init()
