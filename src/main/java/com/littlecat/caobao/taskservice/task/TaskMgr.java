@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.littlecat.caobao.taskservice.common.SysParamName;
 import com.littlecat.caobao.taskservice.sysparam.SysParamUtil;
-import com.littlecat.cbb.common.Consts;
 import com.littlecat.cbb.utils.StringUtil;
 
 /**
@@ -53,7 +53,7 @@ public class TaskMgr
 	private void startTask4ClearResLock()
 	{
 		long cyc = CLEAR_RESLOCK_PROCESS_CYC_DEFAULT;
-		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_CLEAR_RESLOCK_PROCESS_CYC);
+		String cycFromParam = SysParamUtil.getValueByName(SysParamName.clear_reslock_process_cyc.name());
 		if (StringUtil.isNotEmpty(cycFromParam))
 		{
 			cyc = Long.valueOf(cycFromParam);
@@ -77,7 +77,7 @@ public class TaskMgr
 	private void startTask4CalcCommission()
 	{
 		long cyc = CALC_COMMISSION_PROCESS_CYC_DEFAULT;
-		String cycFromParam = SysParamUtil.getValueByName(Consts.PARAM_NAME_CALC_COMMISSION_PROCESS_CYC);
+		String cycFromParam = SysParamUtil.getValueByName(SysParamName.calc_commission_process_cyc.name());
 		if (StringUtil.isNotEmpty(cycFromParam))
 		{
 			cyc = Long.valueOf(cycFromParam);
